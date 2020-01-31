@@ -15,9 +15,10 @@ import os
 if __name__ == '__main__':
     
     # Use argparse to pass in arguments from command line
-    # Additional arguments include: verbosity
+    # Additional arguments include: data directory, verbosity
     parser = argparse.ArgumentParser(description='CNN For Multi-label Classifier')
     parser.add_argument('param', metavar='param.json', help='parameter file name')
+    parser.add_argument('-data', default='even_mnist.csv', metavar='even_mnist.csv', help='data directory (default: even_mnist.csv)')
     parser.add_argument('-v', type=int, default=1, metavar='N', help='verbosity (default: 1)')
     args = parser.parse_args()
     
@@ -33,7 +34,7 @@ if __name__ == '__main__':
     model = Net()
     # Read in datafile even_mnist.csv using data_gen.py
     # Data is stored as a Data class
-    data = Data(datafile = 'files\even_mnist.csv', num_train = param['n_training_data'], num_test = param['n_test_data'])
+    data = Data(datafile = args.data, num_train = param['n_training_data'], num_test = param['n_test_data'])
 
     # Define an optimizer and the loss function
     # Optimizer uses Stochastic Gradient Descent
